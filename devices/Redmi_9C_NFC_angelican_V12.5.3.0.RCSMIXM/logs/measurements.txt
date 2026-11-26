@@ -1,0 +1,75 @@
+Замеры памяти, Redmi 9C NFC (angelican), MIUI V12.5.3.0.RCSMIXM
+Сессия 2026-11-26, все значения в кБ, как отдаёт /proc/meminfo
+MemTotal = 1807980
+
+== 11:05 Базовая линия (до любых изменений) ==
+MemFree:           44004
+MemAvailable:     419808
+Процессов:           514
+
+== 11:20 После отключения 15 пакетов ==
+Процессов:           504
+Проверка: процессов sarauth/cit/milink/ygps/engineermode/fmradio/freeform нет
+
+== 11:22 Play Store поднялся сам (appops ещё не применялся) ==
+MemFree:           50392
+MemAvailable:     417768
+Процессов:           521
+com.android.vending            124652  кБ RSS
+com.android.vending:background  92632  кБ RSS
+
+== 11:23 Сразу после am force-stop com.android.vending ==
+MemFree:           88768
+MemAvailable:     486984
+Процессов:           519
+
+== 11:26 После appops ignore (vending/batteryone/opera) + force-stop всех трёх ==
+MemFree:           53860
+MemAvailable:     408384
+Процессов:           517
+Замечание: appops выставлен и подтверждён (cmd appops get -> ignore),
+но MIUI вернула com.android.vending:background (180824 кБ RSS) за ~20 с.
+
+== 11:26-11:28 Устойчивая серия, 8 замеров за 80 с ==
+#  MemFree  MemAvailable
+1     51        398
+2     39        394
+3     39        394
+4     41        398
+5     39        397
+6     49        397
+7     50        397
+8     49        397
+
+== Топ по RSS на конец сессии (кБ) ==
+221279  system (system_server)
+180824  com.android.vending:background     <- вернулся после force-stop
+160920  com.android.settings               <- открытый Settings в фоне
+125512  com.google.android.gms
+124932  com.android.settings:remote
+118454  com.android.phone
+ 97582  com.android.systemui
+ 99840  com.miui.home
+ 58232  com.android.nfc
+ 52944  com.xiaomi.location.fused
+ 48156  com.miui.securitycenter.remote
+ 44645  surfaceflinger
+ 44176  com.miui.core
+ 40428  com.android.htmlviewer
+ 38480  com.google.android.ext.services
+ 37992  android.process.media
+ 37876  org.dslul.openboard.inputmethod.latin
+ 36872  com.miui.powerkeeper
+ 36464  com.xiaomi.xmsf
+ 34252  com.android.keychain
+ 33572  com.lbe.security.miui
+ 30700  com.android.networkstack.process
+ 24668  com.xiaomi.finddevice
+
+== До отключения miwallpaper ==
+117023  кБ  com.miui.miwallpaper   (процесс исчез после pm disable-user)
+
+ВЫВОД
+Устойчивый прирост MemAvailable от деблоата: в пределах шума (410 -> 377..398).
+Единственный крупный разовый выигрыш (+69 МБ available) даёт force-stop Play
+Store, и MIUI его отменяет самостоятельно.

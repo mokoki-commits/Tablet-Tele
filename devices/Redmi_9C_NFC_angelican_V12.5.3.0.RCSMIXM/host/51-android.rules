@@ -1,0 +1,25 @@
+# udev-правило для доступа к этому устройству без plugdev и без root.
+#
+# Проблема, из-за которой это понадобилось: на Debian с логин-менеджером lightdm
+# TAG+="uaccess" выдаёт ACL пользователю greeter'а (lightdm), а не вашей сессии —
+# в `getfacl /dev/bus/usb/...` видно `user:lightdm:rw-`, и adb отвечает
+# `no permissions (user X is not in the plugdev group)`.
+#
+# Поэтому здесь MODE="0666". Более аккуратная альтернатива — `usermod -aG plugdev $USER`
+# и полный выход-вход в сессию.
+#
+# Установка:
+#   sudo install -m 0644 51-android.rules /etc/udev/rules.d/51-android.rules
+#   sudo udevadm control --reload-rules && sudo udevadm trigger --subsystem-match=usb
+#
+# ВАЖНО: без `udevadm control --reload-rules` правило не действует, даже если файл
+# уже на месте. Проверить, подхватил ли демон файл: сравните
+#   stat -c %y /etc/udev/rules.d/51-android.rules
+#   systemctl show -p ActiveEnterTimestamp --value systemd-udevd
+# Если демон стартовал раньше файла — правило не применено.
+#
+# После установки: переподключить кабель, `adb kill-server && adb start-server`.
+
+SUBSYSTEM=="usb", ATTR{idVendor}=="2717", MODE="0666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0e8d", MODE="0666", GROUP="plugdev"

@@ -1,0 +1,16 @@
+package:org.telegram.messenger
+package:com.google.android.apps.docs.editors.docs
+package:com.google.android.verifier
+package:com.oneapps.batteryone
+package:com.opera.mini.native
+package:com.ovz.carscanner
+package:ua.privatbank.ap24
+package:org.readera
+package:org.thunderdog.challegram
+package:ua.gov.reserveplus
+package:com.google.android.contactkeys
+package:org.videolan.vlc
+package:com.facebook.katana
+package:com.lg.aroadcams
+package:com.miui.mediaeditor
+package:ua.gov.diia.app

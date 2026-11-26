@@ -1,0 +1,19 @@
+MemTotal:        1807980 kB
+MemFree:           44004 kB
+MemAvailable:     419808 kB
+enabled com.longcheertel.sarauth
+enabled com.longcheertel.cit
+enabled com.longcheertel.secretcode
+enabled com.miui.cit
+enabled com.mediatek.engineermode
+enabled com.mediatek.lbs.em2.ui
+enabled com.mediatek.ygps
+enabled com.android.fmradio
+enabled com.miui.freeform
+enabled com.miui.backup
+enabled com.milink.service
+enabled com.miui.audiomonitor
+enabled com.xiaomi.micloud.sdk
+enabled com.android.dreams.basic
+enabled com.android.wallpaper.livepicker
+enabled com.google.android.apps.work.oobconfig
